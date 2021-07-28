@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Example of a call to a native method
-        findViewById<TextView>(R.id.sample_text).text = getMacAddress()
+        findViewById<TextView>(R.id.sample_text).text = getMac()
     }
 
 
@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
      */
-    external fun getMacAddress() : String
+//    external fun getMacAddress() : String
+    external fun getMac():String
 
 
     companion object {
