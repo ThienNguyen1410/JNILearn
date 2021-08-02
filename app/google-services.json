@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "617472469372",
+    "project_id": "jnilearn",
+    "storage_bucket": "jnilearn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617472469372:android:2521679bc34dfdfd659cf9",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617472469372-op45ngibfu77u20i6dr1m5641ghchoea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADE3-TaH6MLfDEvbfJkXTNznPmluRWIJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617472469372-op45ngibfu77u20i6dr1m5641ghchoea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
