@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         // Example of a call to a native method
         findViewById<TextView>(R.id.sample_text).text = getMac()
+        findViewById<TextView>(R.id.SDK).text = getAndroidVersion()
     }
 
 
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
      */
 //    external fun getMacAddress() : String
     external fun getMac():String
+    external fun getAndroidVersion():String
 
 
     companion object {

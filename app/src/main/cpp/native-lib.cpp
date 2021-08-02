@@ -1,29 +1,43 @@
 #include <jni.h>
 #include <string>
-#include "unistd.h"
-#include <fcntl.h>
+#include <iostream>
+#include <fstream>
 #include <android/log.h>
-#define TAG "Error"
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR,    TAG, __VA_ARGS__)
 
 extern "C"
 JNIEXPORT jstring JNICALL
-Java_com_example_myapplication_MainActivity_getMac(JNIEnv *env, jobject thiz) {
-    std::string address = "";
-    const char *path = "/sys/class/net/wlan0/address";
-    int file = open(path, O_RDONLY);
-    if (file < 0) {
-        LOGE("File not found in path %s ", path);
-        return env->NewStringUTF("Not found Mac Address");
-    }
-    char data[18];
-    int len = read(file, data, 17);
-    if (len > 0) {
-        address = std::string(data);
-    } else {
-        LOGE("Read file fail in path %s", path);
-    }
-    return env->NewStringUTF(address.c_str());
+Java_com_example_myapplication_MainActivity_getMac(JNIEnv *env, jobject) {
+	std::fstream my_file;
+	std::string mac;
+	std::string path = "/sys/class/net/wlan0/address";
+	jclass androidOsCls = (env)->FindClass("android/os/Build$VERSION");
+	jfieldID getSdk = env->GetStaticFieldID(androidOsCls,"SDK_INT", "I");
+	jint sdk = env->GetStaticIntField(androidOsCls,getSdk);
+	if( sdk >= 28){
+		path = "/sys/class/net/p2p0/address";
+	}
+	my_file.open(path, std::ios::in);
+	if (!my_file) {
+		std::cout << "File not found";
+	} else {
+		while (1) {
+			my_file >> mac;
+			if (my_file.eof()) {
+				break;
+			}
+		}
+	}
+	my_file.close();
+	return env->NewStringUTF(mac.c_str());
+
+}
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_example_myapplication_MainActivity_getAndroidVersion(JNIEnv *env, jobject) {
+	jclass androidOsCls = (env)->FindClass("android/os/Build$VERSION");
+	jfieldID getOsVersion = env->GetStaticFieldID(androidOsCls, "RELEASE", "Ljava/lang/String;");
+	auto androidVs = (jstring) env->GetStaticObjectField(androidOsCls, getOsVersion);
+	return androidVs;
 }
 
 //jstring charTojstring(JNIEnv* env, const char* pat) {
