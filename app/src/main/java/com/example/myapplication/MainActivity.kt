@@ -6,16 +6,27 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.adapter.MainScreenAdapter
 
 
 class MainActivity : AppCompatActivity() {
+    lateinit var list : RecyclerView
+    var name = arrayOf("Device","Model","Hardware","Android Version","Mac Address")
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        list = findViewById(R.id.listRecyclerView)
+        list.layoutManager = LinearLayoutManager(this)
+        list.adapter = MainScreenAdapter(name,getResult());
 
         // Example of a call to a native method
-        findViewById<TextView>(R.id.sample_text).text = getMac()
-        findViewById<TextView>(R.id.SDK).text = getAndroidVersion()
+        for (element in getResult()){
+            Log.i("test",element)
+        }
     }
 
 
@@ -25,8 +36,7 @@ class MainActivity : AppCompatActivity() {
      * which is packaged with this application.
      */
 //    external fun getMacAddress() : String
-    external fun getMac():String
-    external fun getAndroidVersion():String
+    private external fun getResult(): Array<String>
 
 
     companion object {
